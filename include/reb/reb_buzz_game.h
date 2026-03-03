@@ -1,9 +1,11 @@
-#ifndef REB_BUZZ_H
-#define REB_BUZZ_H
+#ifndef REB_BUZZ_GAME_H
+#define REB_BUZZ_GAME_H
 
 #include "bn_sprite_ptr.h"
 #include "mj/mj_game.h"
 #include "bn_sprite_items_reb_buzz.h"
+#include "bn_sprite_animate_actions.h"
+#include "bn_optional.h"
 
 namespace reb
 {
@@ -19,7 +21,7 @@ namespace reb
 
             [[nodiscard]] bn::string<16> title() const final
             {
-                return "Buzz Buzz Bumble Bee";
+                return "Buzz Buzz";
             }
 
             [[nodiscard]] int total_frames() const final
@@ -37,6 +39,7 @@ namespace reb
 
         private:
             bn::sprite_ptr _playerSprite = bn::sprite_items::reb_buzz.create_sprite(0,0);
+            bn::optional<bn::sprite_animate_action<2>> _beeAnimation;
             bool _victory = false;
     };
 }
