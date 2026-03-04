@@ -54,9 +54,6 @@ protected:
 
 private:
     bn::affine_bg_ptr _head;
-    bn::affine_bg_ptr _hand;
-    bn::sprite_ptr _left_eye;
-    bn::sprite_ptr _right_eye;
 
     void _update_gfx();
 };

@@ -14,7 +14,7 @@ namespace mj
 {
 
 #ifndef MAX_GAME_SECS
-    #define MAX_GAME_SECS 1000
+    #define MAX_GAME_SECS 10
 #endif
 
 /**
