@@ -10,7 +10,7 @@
 
 namespace
 {
-    constexpr bn::string_view code_credits[] = { "Aaron, Jamison, Seadrah" };
+    constexpr bn::string_view code_credits[] = { "JamisonAaronSea" };
     constexpr bn::string_view graphics_credits[] = { "" };
     constexpr bn::string_view sfx_credits[] = {""};
     constexpr bn::string_view music_credits[] = {""};
@@ -43,7 +43,7 @@ namespace jas {
    * Must be <= 16 characters long
    */
   bn::string<16> jas_game::title() const {
-      return "Land the space-ship.";
+      return "Rover Landing";
   }
 
   /**
