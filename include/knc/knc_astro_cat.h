@@ -3,6 +3,7 @@
 
 #include "mj/mj_game.h"
 #include "knc/knc_cat.h"
+#include "knc/knc_planet.h"
 
 namespace knc {
     class knc_astro_cat : public mj::game {
@@ -18,6 +19,9 @@ namespace knc {
 
     private:
         cat _cat;
+        planet _planet;
+        bool _victory;
+        bool _hit;
     };
 }
 

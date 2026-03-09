@@ -12,7 +12,10 @@ namespace knc {
     knc_astro_cat::knc_astro_cat(int completed_games, const mj::game_data& data)
         : mj::game("knc"),
         // start in middle, speed number 2
-        _cat(bn::fixed_point(0,0), 2)
+        _cat(bn::fixed_point(0,0), 2),
+        _planet(bn::fixed_point(0, -80), 2),
+        _victory(false),
+        _hit(false)
     {}
 
     bn::string<16> knc_astro_cat::title() const
@@ -28,19 +31,33 @@ namespace knc {
     mj::game_result knc_astro_cat::play(const mj::game_data& data)
     {
         _cat.update();
-        return mj::game_result();
+
+        _planet.update();
+        if(_planet.off_screen()) {
+            bn::fixed x = bn::fixed(data.random.get_int(200)) - 100;
+            _planet = planet(bn::fixed_point(x, -80), 2);
+        }
+
+        if (_planet.collides_with(_cat.position(), cat::COLLISION_RADIUS)) {
+            _hit = true;
+        }
+        if (data.pending_frames <= 0 && !_hit) {
+            _victory = true;
+        }
+
+        return mj::game_result(_hit, false);
     }
 
     bool knc_astro_cat::victory() const
     {
-        return false;
+        return _victory;
     }
 
-    void knc_astro_cat::fade_in(const mj::game_data& data)
+    void knc_astro_cat::fade_in(const mj::game_data&)
     {
     }
 
-    void knc_astro_cat::fade_out(const mj::game_data& data)
+    void knc_astro_cat::fade_out(const mj::game_data&)
     {
     }
 

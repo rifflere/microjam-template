@@ -13,7 +13,7 @@ public:
 
     static constexpr bn::fixed COLLISION_RADIUS = 10;
     // create a planet 
-    planet(bn::fixed_point position, bn::fixed speed);
+    planet( bn::fixed_point position, bn::fixed speed);
 
     void update();
 
@@ -26,6 +26,7 @@ public:
 
 private:
     bn::sprite_ptr _sprite;
+    bn::fixed_point _position;
     bn::fixed _speed;
 };
 
