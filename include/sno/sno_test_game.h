@@ -81,6 +81,7 @@ class sno_test_game : public mj::game
         player _player;
         black_hole _black_hole;
         bool _player_captured = false;
+        int _frames_elapsed = 0;
 };
 
 }
