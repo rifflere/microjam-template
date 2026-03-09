@@ -1,9 +1,5 @@
 #include "bal_sky_surfers.h"
-
-
 #include "mj/mj_game_list.h"
-
-
 
 namespace
 {
@@ -23,7 +19,7 @@ namespace bal
 {
 bal_sky_surfers::bal_sky_surfers([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
     mj::game("bal"),
-    _ball_player(player({20, 0}, 2))
+    _bal_player(player({20, 0}, 2))
     {}
 
 
@@ -38,7 +34,7 @@ int bal_sky_surfers::total_frames() const {
 mj::game_result bal_sky_surfers::play([[maybe_unused]] const mj::game_data& data)
 {
 
-    _ball_player.update();
+    _bal_player.update();
 
     mj::game_result result(victory(), false);
     return result;
