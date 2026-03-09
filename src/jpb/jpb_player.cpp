@@ -24,6 +24,7 @@ namespace jpb {
         }
     }
 
+    // We'll improve this to have bounding boxes next wave
     bool jpb_player::enemy_intersect() const {
         return player_sprite.x() == enemy_sprite.x() && player_sprite.y() == enemy_sprite.y();
     }
