@@ -31,7 +31,7 @@ namespace jas
          * @param starting_position the location to start the player at
          * @param speed the pixels/frame the player moves at in each dimension
          */
-        player(bn::fixed_point starting_position, bn::fixed vertical_speed, bn::fixed gravity, bool engine_fired);
+        player(bn::fixed_point starting_position, bn::fixed vertical_speed, bn::fixed gravity);
 
         /**
          * Reads from the d-pad and moves the player by one frame accordingly.

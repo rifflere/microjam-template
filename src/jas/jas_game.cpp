@@ -35,7 +35,7 @@ namespace jas
      */
     jas_game::jas_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data &data)
         : mj::game("jas"),
-          _player(player({0, -40}, 0, .025, false)),
+          _player(player({0, -40}, 0, .025)),
           _planet{}
     {
     }
