@@ -82,6 +82,7 @@ namespace cat
         void _check_collection();
 
         bn::regular_bg_ptr _background;
+        bn::fixed _recommended_player_speed(mj::difficulty_level difficulty);
 };
 }
 
