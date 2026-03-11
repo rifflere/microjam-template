@@ -39,12 +39,13 @@ namespace axo
 axo_aquatic_galaxy_defense::axo_aquatic_galaxy_defense([[maybe_unused]] int completed_games, 
     [[maybe_unused]] const mj::game_data& data) :
         mj::game("axo"),
-        _player(player({20, 0}, 2, PLAYER_SIZE)),
+        _player(player({0, 20}, 2, PLAYER_SIZE)),
         _obstacles()
         {
-            _obstacles.push_back(obstacle(-150, 0, 1, OBSTACLE_SIZE));
-            _obstacles.push_back(obstacle(-200, -50, 1, OBSTACLE_SIZE)); // 50 increment to x value making obstacles spawn off-set.
-            _obstacles.push_back(obstacle(-250, 50, 1, OBSTACLE_SIZE));
+            //spawn 3 obstacles, top of screen with varying x values
+            for(int i = 0; i < 10; i++) {
+                _obstacles.push_back(obstacle(-bn::display::width() / 2 + 20 + (i * 30), -bn::display::height(), 1, OBSTACLE_SIZE));
+            }
         }
 
 /**
