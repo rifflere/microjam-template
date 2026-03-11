@@ -45,4 +45,15 @@ void player::update()
     _sprite.set_x(x);
 }
 
+// return actual sprite posiiton
+bn::fixed player::x() const
+{
+    return _sprite.x();
 }
+
+bn::fixed player::y() const
+{
+    return _sprite.y();
+}
+
+} //end 
