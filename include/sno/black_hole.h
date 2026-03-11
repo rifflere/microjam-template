@@ -37,8 +37,4 @@ namespace sno
 
 }
 
-<<<<<<< HEAD
 #endif
-=======
-#endif
->>>>>>> 0b63803fffc0a1bc885ad1caae237a6a671cec37

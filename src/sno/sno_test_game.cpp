@@ -38,6 +38,17 @@ namespace sno
         return "Avoid the void!";
     }
 
+// Returns a stronger black hole attraction the harder the difficulty
+    bn::fixed sno_test_game::_black_hole_attraction(mj::difficulty_level difficulty) {
+        if(difficulty == mj::difficulty_level::EASY) {
+            return bn::fixed(0.5);
+        } else if(difficulty == mj::difficulty_level::NORMAL) {
+            return bn::fixed(1);
+        } 
+        return bn::fixed(2);
+    }
+
+
     int sno_test_game::total_frames() const
     {
         return 600;
