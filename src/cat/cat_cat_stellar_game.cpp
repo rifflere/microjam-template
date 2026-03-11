@@ -1,9 +1,12 @@
 #include "cat/cat_cat_stellar_game.h"
 
 #include "mj/mj_game_list.h"
-
 #include "bn_sprite_items_cat_star.h"
 #include "bn_regular_bg_items_cat_background.h"
+#include "bn_sprite_text_generator.h"
+#include "bn_sprite_font.h"
+#include "common_variable_8x16_sprite_font.h"
+
 
 
 // add an anonymous namespace after your includes but before 
