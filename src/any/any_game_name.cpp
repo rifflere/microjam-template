@@ -82,7 +82,7 @@ any_game_name::any_game_name(int completed_games, const mj::game_data& data) :
 
 
 bn::string<16> any_game_name::title() const {
-    return "Astronaut (Grab the Moon)";
+    return "Grab the Moon";
 }
 
 int any_game_name::total_frames() const {
