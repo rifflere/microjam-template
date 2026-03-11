@@ -32,7 +32,7 @@ namespace kgg
     } else if(difficulty == mj::difficulty_level::NORMAL) {
         return 2.5;       // medium speed
     }
-    return 4.0;           // hard 
+    return 4.0;           // hard speed
 }
 
 
