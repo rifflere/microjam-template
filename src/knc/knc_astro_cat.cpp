@@ -144,6 +144,30 @@ namespace knc {
             _hit = true;
         }
     }
+
+        // HARD ONLY — count down delay, then activate enemy
+        if(_difficulty == mj::difficulty_level::HARD) { //difficulty level
+            if(_enemy1_delay > 0) { // count down delay
+                _enemy1_delay--; // decrease delay
+            }
+                // spawn enemy when delay expires
+                if(_enemy1_delay == 0) { // spawn enemy
+                    bn::fixed y = bn::fixed(data.random.get_int(100)) - 50; // random y position for enemy
+                    _enemy1 = enemy(bn::fixed_point(-120, y), speed, 1);   // spawn from left to moving right
+                } else { // update enemy if active
+                _enemy1.update();  // respawn enemy if it goes off screen
+                }
+
+                // IF the enemy goes off screen
+                if(_enemy1.off_screen()) { // respawn enemy
+                    _enemy1_direction = !_enemy1_direction; // alternate spawn direction
+                    int dir = _enemy1_direction ? 1 : -1; // direction multiplier for speed
+                    bn::fixed spawn_x = _enemy1_direction ? bn::fixed(-120) : bn::fixed(120); // spawn from left or right based on direction
+                    bn::fixed y = bn::fixed(data.random.get_int(100)) - 50; // random y position
+                    _enemy1 = enemy(bn::fixed_point(spawn_x, y), speed, dir); // spawn enemy with new position and direction
+                }
+            }
+
     // hard only
     if (_difficulty == mj::difficulty_level::HARD) {
         if (_star3.collides_with(_cat.position(), cat::COLLISION_RADIUS) ||
