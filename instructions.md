@@ -236,3 +236,53 @@ Make/run, then add/commit/test. You should be tuning your game so that it's fun 
 ### Submitting
 
 Once you have added your difficulty levels, add/commit/push. Make a new PR! If you want to continue work past this, please make a new branch to continue your work.
+
+## Wave 7: Prettifying and incorporating feedback
+If you have feedback on a PR, PLEASE RESOLVE THOSE ISSUES BEFORE WORKING ON NEW FUNCTIONALITY.
+
+If your PR is still open, please make a NEW BRANCH to continue your work.
+
+PLEASE MAKE SURE TO PULL FROM UPSTREAM
+
+### Incorporating Feedback
+
+Please make improvements to your game based on the feedback you got from your classmates. You do not need to take every suggestion, but you should seriously consider what they say!
+
+Some types of improvements:
+
+- Making games easier/harder
+- Fixing bugs
+- Changing controls / game mechanics
+
+Make/test, then add/commit/push
+
+### Adding a background
+
+Please create a nice looking background in LibreSprite and add it to your game. A few resources to help:
+- Look at the example aub_test_game
+- Look at the `regular_bgs` example in butano-contained
+- The Butano importing assets [regular_bg section](https://gvaliente.github.io/butano/import.html#import_regular_bg)
+
+Please pay attention to the size restrictions on the Butano importing assets page!
+
+Make/run, then add/commit/push.
+
+### Adding a sprite animation
+
+At least one of your sprites must be animated. Some examples of possible types of animations
+
+- Looping animation of blinking lights on a space ship
+- Sprite that flips directions when moving in different directions
+- Swirling black hole, twinkling stars etc.
+- Explosion animation when player crashes
+
+A few resources to help:
+- Look at the example aub_test_game
+- In the sprites example of butano-contained
+    - sprites_animation_actions_scene function
+    - sprites_animation_scene function
+
+Make/run, then add/commit/push.
+
+### Submitting
+Make a new PR! If you want to continue work past this, please make a new branch to continue your work. Please submit your PR link on Canvas.
