@@ -1,12 +1,16 @@
 #include "cat/cat_cat_stellar_game.h"
 
 #include "mj/mj_game_list.h"
-
 #include "bn_sprite_items_cat_star.h"
+#include "bn_sprite_items_cat_enemy.h"
 #include "bn_regular_bg_items_cat_background.h"
+#include "bn_sprite_text_generator.h"
+#include "bn_sprite_font.h"
+#include "mj/mj_small_sprite_font.h"
+#include "bn_vector.h"
+#include "bn_string.h"
 
-
-// add an anonymous namespace after your includes but before 
+//anonymous namespace 
 namespace
 {
     constexpr bn::string_view code_credits[] = { "Nadia Ivanishchuk", "Paris Allkurti" };
@@ -18,7 +22,6 @@ namespace
 // All game functions/classes/variables/constants scoped to the namespace
 namespace cat
 {
-
 /**
  * Constructor for an instance of a cat_stellar_game
  * 
@@ -29,20 +32,86 @@ namespace cat
  */
 cat_cat_stellar_game::cat_cat_stellar_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data& data) :
     mj::game("cat"),
-    _player({0, 0}, 2),
+    _difficulty(recommended_difficulty_level(completed_games, data)),
+    _stars_to_win(_recommended_stars_to_win(_difficulty)),
+    _player({0, 0}, _recommended_player_speed(_difficulty)),
+    _enemy(_recommended_enemy_start_position(_difficulty).x(), 
+           _recommended_enemy_start_position(_difficulty).y(), 
+           _recommended_enemy_speed(_difficulty)),
     _stars_collected(0),
+    _lost(false),
+    _text_generator(data.text_generator),
     _background(bn::regular_bg_items::cat_background.create_bg(0, 0))
-    {
-        for(int i = 0; i < _total_stars; ++i) {
-            bn::fixed x = bn::fixed(data.random.get_int(200)) - 100; // Random x between -100 and 100
-            bn::fixed y = bn::fixed(data.random.get_int(120)) - 60; // Random y between -60 and 60
-            _stars[i] = bn::sprite_items::cat_star.create_sprite({x, y});
-        }
+{
+    for(int i = 0; i < _total_stars; ++i) {
+        bn::fixed x = bn::fixed(data.random.get_int(200)) - 100; 
+        bn::fixed y = bn::fixed(data.random.get_int(120)) - 60; 
+        _stars[i] = bn::sprite_items::cat_star.create_sprite({x, y});
     }
+    _update_score_display();
+}
 
-    
+bn::fixed cat_cat_stellar_game::_recommended_player_speed(mj::difficulty_level difficulty)
+{
+    switch(difficulty)
+    {
+        case mj::difficulty_level::EASY:
+            return 2.5;
+        case mj::difficulty_level::NORMAL:
+            return 2.0;
+        case mj::difficulty_level::HARD:
+            return 1.5;
+        default:
+            return 2.0;
+    }
+}
 
-    /**
+int cat_cat_stellar_game::_recommended_stars_to_win(mj::difficulty_level difficulty)
+{
+    switch(difficulty)
+    {
+        case mj::difficulty_level::EASY:
+            return 3;
+        case mj::difficulty_level::NORMAL:
+            return 5;
+        case mj::difficulty_level::HARD:
+            return 7;
+        default:
+            return 3;
+    }
+}
+
+bn::fixed cat_cat_stellar_game::_recommended_enemy_speed(mj::difficulty_level difficulty)
+{
+    switch(difficulty)
+    {
+        case mj::difficulty_level::EASY:
+            return 0.4;
+        case mj::difficulty_level::NORMAL:
+            return 0.6;
+        case mj::difficulty_level::HARD:
+            return 0.8;
+        default:
+            return 0.6;
+    }
+}
+
+bn::fixed_point cat_cat_stellar_game::_recommended_enemy_start_position(mj::difficulty_level difficulty)
+{
+    switch(difficulty)
+    {
+        case mj::difficulty_level::EASY:
+            return {100, 60};  // Far from player (0, 0)
+        case mj::difficulty_level::NORMAL:
+            return {80, 50};   // Medium distance
+        case mj::difficulty_level::HARD:
+            return {60, 40};   // Closer
+        default:
+            return {100, 60};
+    }
+}
+
+/**
  * The instructions given to the player at the beginning of the microgame.
  * 
  * Must be <= 16 characters long
@@ -73,7 +142,15 @@ int cat_cat_stellar_game::total_frames() const {
 mj::game_result cat_cat_stellar_game::play([[maybe_unused]] const mj::game_data& data)
 {
     _player.update();
+    _enemy.update(_player.position());
     _check_collection();
+
+    if(_enemy.collides_with(_player.position()))
+    {
+        _lost = true;
+        return { true, false };
+    }
+
     return { victory(), false};
 }
 
@@ -83,9 +160,16 @@ mj::game_result cat_cat_stellar_game::play([[maybe_unused]] const mj::game_data&
  * In this particular microgame the player wins if they collect enough stars before time runs out.
  */
 bool cat_cat_stellar_game::victory() const {
+    if(_lost)
+    {
+        return false;
+    }
     return _stars_collected >= _stars_to_win;
 }
 
+/**
+ * Checks if the player has collected any stars and updates the score accordingly.
+ */
 void cat_cat_stellar_game::_check_collection()
 {
     bn::fixed_point player_pos = _player.position();
@@ -103,9 +187,25 @@ void cat_cat_stellar_game::_check_collection()
             {
                 star.reset(); // hides the sprite and frees it
                 _stars_collected++;
+                _update_score_display();
             }
         }
     }
+}
+
+/**
+ * Updates the score display to show progress (e.g., "3/5 Stars")
+ */
+void cat_cat_stellar_game::_update_score_display()
+{
+    _score_sprites.clear();
+
+    bn::string<20> score_text = bn::to_string<2>(_stars_collected);
+    score_text.append("/");
+    score_text.append(bn::to_string<2>(_stars_to_win));
+    score_text.append(" Stars");
+    
+    _text_generator.generate(-90, -70, score_text, _score_sprites);
 }
 
 /**
@@ -116,7 +216,6 @@ void cat_cat_stellar_game::_check_collection()
 void cat_cat_stellar_game::fade_in([[maybe_unused]] const mj::game_data& data)
 {
 }
-
 
 /**
  * Called repeatedly as the game fades out of view. Unused for this particular microgame.
