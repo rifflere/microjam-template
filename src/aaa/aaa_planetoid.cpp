@@ -8,6 +8,7 @@
 #include "bn_sprite_items_aaa_heart.h"
 #include "bn_regular_bg_items_aaa_bg.h"
 #include <bn_core.h>
+#include <bn_log.h>
 
 namespace
 {
@@ -96,6 +97,7 @@ namespace aaa
         }
 
         _checkHit(_enemies, _bullets, _asteroids);
+        BN_LOG(_asteroids);
 
         return mj::game_result(victory(), false);
     }
@@ -138,17 +140,17 @@ namespace aaa
             {
                 if (bullets[i].getRect().intersects(enemies[j].getRect()))
                 {
-
-                    asteroids = asteroids - 1;
+                    
                     if (!_enemies[j].is_destroyed()) // this makes sure that the enemies destroyed boolean isnt already toggle to prevent duplicate calls
                     {
                         _enemies[j].destroyedAnimation(); // toggles boolean to create/start animation
-                        _asteroids = _asteroids - 1;      // placing this asteroid decrementer here worked best for triggering correct win condition
+                        asteroids = asteroids - 1;      // placing this asteroid decrementer here worked best for triggering correct win condition
                     }
                     if (_enemies[j].animation_done()) // only deletes if animation is finished
                     {
                         _enemies.erase(_enemies.begin() + j);
                     }
+                    
                 }
             }
             if (_outOfBounds(bullets[i]))
