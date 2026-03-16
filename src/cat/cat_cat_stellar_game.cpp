@@ -10,6 +10,7 @@
 #include "bn_vector.h"
 #include "bn_string.h"
 
+//background 240 x 160
 //anonymous namespace 
 namespace
 {
@@ -60,7 +61,7 @@ bn::fixed cat_cat_stellar_game::_recommended_player_speed(mj::difficulty_level d
         case mj::difficulty_level::NORMAL:
             return 2.0;
         case mj::difficulty_level::HARD:
-            return 1.5;
+            return 1.65;
         default:
             return 2.0;
     }
@@ -86,13 +87,13 @@ bn::fixed cat_cat_stellar_game::_recommended_enemy_speed(mj::difficulty_level di
     switch(difficulty)
     {
         case mj::difficulty_level::EASY:
-            return 0.4;
+            return 0.2;
         case mj::difficulty_level::NORMAL:
-            return 0.6;
+            return 0.4;
         case mj::difficulty_level::HARD:
-            return 0.8;
-        default:
             return 0.6;
+        default:
+            return 0.2;
     }
 }
 
