@@ -45,7 +45,10 @@ namespace mar
         // The pixels/frame the player moves in each dimension
         bn::fixed _speed;
         bn::rect _rect;
-        int pause_timer = 30; // Timer to pause the player after moving up
+        bn::fixed _gravity = bn::fixed(0.12);
+        bn::fixed _thrust_up = bn::fixed(1.5);
+        bn::fixed _velocity;
+        bool _grounded = false;
     };
 
 }

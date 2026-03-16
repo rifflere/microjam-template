@@ -5,6 +5,7 @@
 #include "mar/mar_player.h"
 #include "mar/mar_enemy.h"
 #include "mar/mar_bounds.h"
+#include <bn_regular_bg_ptr.h>
 
 namespace mar
 {
@@ -72,10 +73,11 @@ namespace mar
         mar_player _player;
 
         bn::vector<mar_enemy, 25> enemies;
-        
+
         bool collision = false;
 
         bn::fixed difficulty(mj::difficulty_level difficulty);
+        bn::regular_bg_ptr _background;
     };
 }
 #endif

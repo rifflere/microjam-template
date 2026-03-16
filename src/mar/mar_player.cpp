@@ -32,29 +32,52 @@ namespace mar
      */
     void mar_player::update()
     {
-        // If up is held moves up. If down is held moves down. Otherwise, moves down at a slower speed to simulate gravity.
+        // thrust buildup while up is held, resets when released
         if (bn::keypad::up_held() && _sprite.y() > MIN_Y)
         {
-            _sprite.set_y(_sprite.y() - _speed - 2);
-            pause_timer = 30;
+            _thrust_up += bn::fixed(0.2);
+            if (_thrust_up >= bn::fixed(1.5))
+            {
+                _thrust_up = bn::fixed(1.5);
+            }
         }
-        // count down the pause timer if it's greater than 0, which will cause the player to fall slower for a short time after moving up
-        if (pause_timer > 0 && !bn::keypad::up_held())
+        else
         {
-            --pause_timer;
-            _sprite.set_y(_sprite.y() + _speed / 8);
+            _thrust_up = bn::fixed(0.5);
         }
 
-        else if (_sprite.y() < MAX_Y)
+        // gravity always applies
+        _velocity += _gravity;
+
+        // jetpack counters gravity
+        if (bn::keypad::up_held() && _sprite.y() > MIN_Y)
         {
-            _sprite.set_y(_sprite.y() + _speed / 2);
+            _velocity -= _thrust_up;
         }
 
+        // fast fall
         if (bn::keypad::down_held() && _sprite.y() < MAX_Y)
         {
-            _sprite.set_y(_sprite.y() + _speed);
+            _velocity += _gravity * bn::fixed(2);
         }
 
-        _rect.set_position(_sprite.x().round_integer(), _sprite.y().round_integer());
+        // apply velocity
+        _sprite.set_y(_sprite.y() + _velocity);
+
+        // clamps — keeps player on screen
+        if (_sprite.y() >= MAX_Y)
+        {
+            _sprite.set_y(MAX_Y);
+            _velocity = bn::fixed(0);
+        }
+        if (_sprite.y() <= MIN_Y)
+        {
+            _sprite.set_y(MIN_Y);
+            _velocity = bn::fixed(0);
+        }
+
+        _rect.set_position(
+            _sprite.x().round_integer(),
+            _sprite.y().round_integer());
     }
 }
