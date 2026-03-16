@@ -23,7 +23,7 @@ namespace mar
                            _rect(
                                bn::rect(
                                    starting_position.x().round_integer(),
-                                   starting_position.y().round_integer(), 8, 8))
+                                   starting_position.y().round_integer(), 16, 16))
     {
     }
 
@@ -32,52 +32,21 @@ namespace mar
      */
     void mar_player::update()
     {
-        // thrust buildup while up is held, resets when released
+        // If up is held moves up. If down is held moves down. Otherwise, moves down at a slower speed to simulate gravity.
         if (bn::keypad::up_held() && _sprite.y() > MIN_Y)
         {
-            _thrust_up += bn::fixed(0.2);
-            if (_thrust_up >= bn::fixed(1.5))
-            {
-                _thrust_up = bn::fixed(1.5);
-            }
+            _sprite.set_y(_sprite.y() - _speed);
         }
-        else
+        else if (_sprite.y() < MAX_Y)
         {
-            _thrust_up = bn::fixed(0.5);
+            _sprite.set_y(_sprite.y() + _speed/4);
         }
 
-        // gravity always applies
-        _velocity += _gravity;
-
-        // jetpack counters gravity
-        if (bn::keypad::up_held() && _sprite.y() > MIN_Y)
-        {
-            _velocity -= _thrust_up;
-        }
-
-        // fast fall
         if (bn::keypad::down_held() && _sprite.y() < MAX_Y)
         {
-            _velocity += _gravity * bn::fixed(2);
+            _sprite.set_y(_sprite.y() + _speed);
         }
 
-        // apply velocity
-        _sprite.set_y(_sprite.y() + _velocity);
-
-        // clamps — keeps player on screen
-        if (_sprite.y() >= MAX_Y)
-        {
-            _sprite.set_y(MAX_Y);
-            _velocity = bn::fixed(0);
-        }
-        if (_sprite.y() <= MIN_Y)
-        {
-            _sprite.set_y(MIN_Y);
-            _velocity = bn::fixed(0);
-        }
-
-        _rect.set_position(
-            _sprite.x().round_integer(),
-            _sprite.y().round_integer());
+        _rect.set_position(_sprite.x().round_integer(), _sprite.y().round_integer());
     }
 }
