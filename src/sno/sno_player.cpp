@@ -61,20 +61,20 @@ namespace sno
 
         if (pos.x() < bh_position.x())
         {
-            _sprite.set_x(pos.x() + 1);
+            _sprite.set_x(pos.x() + .75);
         }
         else if (pos.x() > bh_position.x())
         {
-            _sprite.set_x(pos.x() - 1);
+            _sprite.set_x(pos.x() - .75);
         }
 
         if (pos.y() < bh_position.y())
         {
-            _sprite.set_y(pos.y() + 1);
+            _sprite.set_y(pos.y() + .75);
         }
         else if (pos.y() > bh_position.y())
         {
-            _sprite.set_y(pos.y() - 1);
+            _sprite.set_y(pos.y() - .75);
         }
     }
 
