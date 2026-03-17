@@ -37,8 +37,8 @@ namespace mar
      * @param data shared information, such as a rng and number of frames left in the microgame
      */
     mar_mars_escape::mar_mars_escape([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data &data) : mj::game("mar"),
-                                                                                                                         _player(mar_player({MIN_X + 60, 0}, 2)),
-                                                                                                                         _background(bn::regular_bg_items::mar_bg.create_bg())
+_player(mar_player({MIN_X + 60, 0}, 2)),
+_background(bn::regular_bg_items::mar_bg.create_bg())
     {
         bn::fixed diff = difficulty(recommended_difficulty_level(completed_games, data));
 

@@ -3,6 +3,7 @@
 
 #include <bn_fixed_point.h>
 #include <bn_sprite_ptr.h>
+#include "bn_sprite_animate_actions.h"
 
 #include "bn_rect.h"
 #include "mar/mar_bounds.h"
@@ -42,13 +43,11 @@ namespace mar
     private:
         // The sprite to display the player
         bn::sprite_ptr _sprite;
+        bn::sprite_animate_action<4> _sprite_action;
+
         // The pixels/frame the player moves in each dimension
         bn::fixed _speed;
         bn::rect _rect;
-        bn::fixed _gravity = bn::fixed(0.12);
-        bn::fixed _thrust_up = bn::fixed(1.5);
-        bn::fixed _velocity;
-        bool _grounded = false;
     };
 
 }
