@@ -35,7 +35,7 @@ namespace jas
     void player::update()
     {
         // While the boost button is pressed
-        if (bn::keypad::a_held())
+        if (bn::keypad::a_held()||bn::keypad::b_held())
         {
             // Add BOOST_ACCELERATION to the player's speed.
             engineOn(_gravity*2);
@@ -59,7 +59,8 @@ namespace jas
         _update_animation();
     }
     void player::_update_animation(){
-        if(bn::keypad::a_held()){
+        if (bn::keypad::a_held() || bn::keypad::b_held())
+        {
             _flame.set_y(_sprite.y()+12);
         }
         else{
