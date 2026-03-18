@@ -28,7 +28,9 @@ namespace sno
 {
     sno_test_game::sno_test_game([[maybe_unused]] int completed_games, [[maybe_unused]] const mj::game_data &data) : mj::game("sno"),
                                                                                                                      _player(sno::player({50, 30}, _recommended_player_speed(recommended_difficulty_level(completed_games, data)))),
-                                                                                                                     _black_hole(sno::black_hole({0, 0}))
+                                                                                                                     _black_hole(sno::black_hole({0, 0})) {
+                                                                                                                        play_sound(bn::sound_items::sno_bg_theme, complete_games, data);
+                                                                                                                     }
     {
     }
 
