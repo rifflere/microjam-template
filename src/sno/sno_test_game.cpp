@@ -54,7 +54,7 @@ namespace sno
 
     int sno_test_game::total_frames() const
     {
-        return 600;
+        return 360; // 6 x 60 fps
     }
 
     mj::game_result sno_test_game::play([[maybe_unused]] const mj::game_data &data)
