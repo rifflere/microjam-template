@@ -31,7 +31,7 @@ namespace sno
                                                                                                                      _player(sno::player({50, 30}, _recommended_player_speed(recommended_difficulty_level(completed_games, data)))),
                                                                                                                      _black_hole(sno::black_hole({0, 0}))
     {
-        play_sound(bn::sound_items::sno_bg_theme, completed_games, data);
+        play_sound(bn::sound_items::sno_bg_theme_1, completed_games, data);
     }
     bn::string<16> sno_test_game::title() const
     {
