@@ -48,7 +48,7 @@ kgg_game_name::kgg_game_name(int completed_games, const mj::game_data& data)
 
 bn::string<16> kgg_game_name::title() const
 {
-    return "Dodge the Rockss";
+    return "Avoid the Rockss";
 }
 
 int kgg_game_name::total_frames() const
