@@ -3,7 +3,6 @@
 
 #include "bn_sprite_ptr.h"
 #include "bn_fixed.h"
-#include "bn_optional.h"
 #include "bn_sprite_items_reb_moon.h"
 
 
