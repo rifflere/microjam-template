@@ -12,12 +12,14 @@ namespace
 {
     constexpr bn::string_view code_credits[] = { "Rebecca Riffle" };
     constexpr bn::string_view graphics_credits[] = { "Rebecca Riffle" };
-    constexpr bn::string_view sfx_credits[] = {""};
+    constexpr bn::string_view music_credits[] = {"Centurion_of_war"};
+    constexpr bn::string_view sfx_credits[] = {"aquinn"};
 }
 
 MJ_GAME_LIST_ADD(reb::reb_eclipse_game)
 MJ_GAME_LIST_ADD_CODE_CREDITS(code_credits)
 MJ_GAME_LIST_ADD_GRAPHICS_CREDITS(graphics_credits)
+MJ_GAME_LIST_ADD_MUSIC_CREDITS(music_credits)
 MJ_GAME_LIST_ADD_SFX_CREDITS(sfx_credits)
 
 namespace reb
@@ -26,7 +28,7 @@ namespace reb
     static constexpr bn::fixed sun_y = 0; 
     static constexpr bn::fixed moon_x_init = 28; 
     static constexpr bn::fixed moon_y_init = 270;
-    static constexpr bn::fixed human_error_allowed = 160; // reduce to make game more difficult, increase to make game more lenient
+    static constexpr bn::fixed human_error_allowed = 150; // reduce to make game more difficult, increase to make game more lenient
 
     bool solar_eclipse_check(bn::fixed, bn::fixed, bn::fixed, bn::fixed);
 

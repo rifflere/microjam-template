@@ -9,7 +9,7 @@
 
 namespace reb
 {
-    static constexpr int base_speed = 2.5;
+    static constexpr int base_speed = 1;
 
     moon::moon(bn::fixed earth_x, bn::fixed earth_y, bn::fixed orbit_radius, bn::fixed start_angle_degrees, bn::fixed speed_modifier) : 
         _moonSprite(bn::sprite_items::reb_moon.create_sprite(0,0)),
