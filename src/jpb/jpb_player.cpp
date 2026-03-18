@@ -69,6 +69,7 @@ namespace jpb {
                 _missile_count -= 1;
                 bn::sound_items::laser_shooting_sfx.play();
             }
+            // bn::sound_items::laser_shooting_sfx.play();
         }
     }
 }
