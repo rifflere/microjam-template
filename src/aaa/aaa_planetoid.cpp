@@ -55,7 +55,7 @@ namespace aaa
 
             bn::fixed_point pos(x, y);
 
-            _enemies.push_back(aaa_enemy({pos}, .6));
+            _enemies.push_back(aaa_enemy({pos}, _recommended_enemy_speed(recommended_difficulty_level(completed_games, data))));
         }
         play_sound(bn::sound_items::aaa_music, completed_games, data);
     }
@@ -129,6 +129,16 @@ namespace aaa
             return 5;
         }
         return 10;
+    }
+
+    bn::fixed aaa_planetoids::_recommended_enemy_speed(mj::difficulty_level difficulty){
+        if (difficulty == mj::difficulty_level::EASY){
+            return .6;
+        }
+        else if (difficulty == mj::difficulty_level::NORMAL){
+            return .7;
+        }
+        return .8;
     }
 
     void aaa_planetoids::_checkHit(bn::vector<aaa_enemy, 12> &enemies, bn::vector<aaa_Bullet, 25> &bullets, bn::fixed &asteroids)
