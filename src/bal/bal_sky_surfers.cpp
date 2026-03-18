@@ -37,7 +37,7 @@ bal_sky_surfers::bal_sky_surfers([[maybe_unused]] int completed_games, [[maybe_u
     _difficulty_level(_recommended_player_speed(recommended_difficulty_level(completed_games, data))),
     _background(bn::regular_bg_items::stary_bg.create_bg())
     {
-        //play_sound(bn::sound::bal_sample, completed_games, data);
+        play_sound(bn::sound_items::bal_the_rocks_are_coming, completed_games, data);
     }
     
 
