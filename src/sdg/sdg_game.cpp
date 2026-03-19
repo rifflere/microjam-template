@@ -28,7 +28,6 @@
 #include "bn_sprite_items_arrow_left.h"
 #include "bn_regular_bg_items_hyperdrivebg.h"
 
-
 namespace
 {
     constexpr bn::string_view code_credits[] = { "Iker & Kevin James \"bigtoe\" Miclea" };
@@ -50,6 +49,7 @@ namespace sdg{
         _player(input(_code_difficulty(recommended_difficulty_level(completed_games, data)), data.random)),
         _background(bn::regular_bg_items::hyperdrivebg.create_bg(8, 48))
     {
+
         // Get the randomly generated arrow pattern from the input system.
         const auto& pattern = _player.challenge();
 
@@ -95,6 +95,40 @@ namespace sdg{
     mj::game_result sdg_game::play([[maybe_unused]] const mj::game_data& data)
     {
         _player.update();
+
+        // player progress class attribute
+        int progress = _player.progress();
+
+        // initialize arrows
+        const bn::sprite_item* arrow_items[4] = {
+            &bn::sprite_items::arrow_up,
+            &bn::sprite_items::arrow_right,
+            &bn::sprite_items::arrow_down,
+            &bn::sprite_items::arrow_left
+        };
+
+        // arrow pattern (pointer)
+        const auto& pattern = _player.challenge();
+
+        // shows green arrows when correct
+        for(int i = 0; i < progress; ++i)
+        {
+            _arrows[i].set_tiles(
+                arrow_items[pattern[i]]->tiles_item().create_tiles(1)
+            );
+        }
+
+        // resets arrows when incorrect, with some angry flair
+        if (_player.incorrect_input) {
+            for (int i = 0; i < _player.challenge().size(); i++) {
+                _arrows[i].set_tiles(arrow_items[pattern[i]]->tiles_item(), 2);
+            }
+            _player.incorrect_input = false;
+        }
+
+        if (_player.correct_input) {
+            _player.correct_input = false;
+        }
 
         mj::game_result result(victory(), false);
         return result;
