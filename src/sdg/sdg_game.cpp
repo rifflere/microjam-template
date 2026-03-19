@@ -119,15 +119,15 @@ namespace sdg{
         }
 
         // resets arrows when incorrect, with some angry flair
-        if (_player._incorrect_input) {
+        if (_player.incorrect_input) {
             for (int i = 0; i < _player.challenge().size(); i++) {
                 _arrows[i].set_tiles(arrow_items[pattern[i]]->tiles_item(), 2);
             }
-            _player._incorrect_input = false;
+            _player.incorrect_input = false;
         }
 
-        if (_player._correct_input) {
-            _player._correct_input = false;
+        if (_player.correct_input) {
+            _player.correct_input = false;
         }
 
         mj::game_result result(victory(), false);
