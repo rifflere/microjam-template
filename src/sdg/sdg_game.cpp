@@ -52,6 +52,8 @@ namespace sdg{
         _background(bn::regular_bg_items::hyperdrivebg.create_bg(8, 48))
     {
 
+        play_sound(bn::sound_items::sdg_game_music, completed_games, data);
+        
         // Get the randomly generated arrow pattern from the input system.
         const auto& pattern = _player.challenge();
 
