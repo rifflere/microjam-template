@@ -34,7 +34,7 @@ bn::fixed kgg_game_name::_speed(mj::difficulty_level difficulty)
 
 kgg_game_name::kgg_game_name(int completed_games, const mj::game_data& data)
 : mj::game("kgg"),
-  _data(data),
+  
   _background(bn::regular_bg_items::kgg_background.create_bg())
 {
     _rock_speed = _speed(recommended_difficulty_level(completed_games, data));
@@ -77,7 +77,7 @@ mj::game_result kgg_game_name::play([[maybe_unused]] const mj::game_data& data)
 
         if(_rocks.size() < _rocks.max_size())
         {
-            bn::random& random = _data.random;
+            bn::random& random = data.random;
             int random_x = random.get_int(-bn::display::width() / 2 + 8,
                                         bn::display::width() / 2 - 8);
 
@@ -115,7 +115,7 @@ mj::game_result kgg_game_name::play([[maybe_unused]] const mj::game_data& data)
         bn::string<32> score_text = "Score: ";
         score_text.append(bn::to_string<16>(_score));
 
-        _data.text_generator.generate(-100, -70, score_text, _score_sprites);
+        data.text_generator.generate(-100, -70, score_text, _score_sprites);
     }
 
     return mj::game_result();
